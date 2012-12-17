@@ -1,0 +1,23 @@
+<div class="activity">
+    <div class="actionbox">
+       <!-- <a class="btn btn-half btn-small btn-success"><i class="icon icon-thumbs-up icon-white"></i></a>
+        <a class="btn btn-half btn-small btn-danger"><i class="icon icon-thumbs-down icon-white"></i></a>-->
+        #{if _activity.likes.contains(_pov)}
+            <a rel="${_activity.id}" href="javascript:void()" title="Ne plus aimer" class="btn btn-small iDislikeIt">${_activity.likes.size()} <i class="icon icon-heart"></i></a>
+        #{/if}
+        #{else}
+            <a rel="${_activity.id}" href="javascript:void()" title="Aimer" class="btn btn-small btn-success iLikeIt">${_activity.likes.size()} <i class="icon icon-heart icon-white"></i></a>
+        #{/else}
+       <!-- <a class="btn btn-small btn-primary">1 <i class="icon icon-comment icon-white"></i></a>-->
+    </div>
+    <img src="@@{Application.index()}${_activity.owner.getAvatarPath()}" class="avatar img-rounded"/>
+    <h4><a href="@{Profil.fiche(_activity.owner.id,_activity.owner.name.slugify())}">${_activity.owner.name}</a> <small>${_activity.timeShared.since()}</small></h4>
+    <p>${_activity.message}</p>
+    
+    <div style="clear:both"></div>
+    <div class="activity-photos row">
+    #{list items: _activity.photos, as:'photo'}
+        #{renderImageThumb photo:photo, showActions: false/}
+    #{/list}
+    </div>
+</div>

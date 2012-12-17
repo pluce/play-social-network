@@ -1,0 +1,114 @@
+#{extends 'main.html' /}
+#{set title:'Profil' /}
+
+<div class="page-header">
+  
+#{if controllers.Security.connected() == current.email}
+    <h1>Votre profil</h1>
+#{/if}
+#{else}
+    <h1>Profil de ${current.name}</h1>
+#{/else}
+</div>
+
+<div class="row">
+    <div class="span3">
+        <ul class="nav nav-list">
+            #{if controllers.Security.connected() == current.email}
+                <li class="nav-header">Vos préférés</li>
+            #{/if}
+            #{else}
+                <li class="nav-header">Ses préférés</li>
+            #{/else}
+            #{list items:current.follows, as:'best'}
+            <li class="nav-fan"><a href="@{Profil.fiche(best.id,best.name.slugify())}">
+                <img src="@@{Application.index()}${best.getAvatarPath()}" class="img-rounded"/>${best.name}</a></li>        
+            #{/list}
+            #{if controllers.Security.connected() == current.email}
+                <li class="nav-header">Vos fans</li>
+            #{/if}
+            #{else}
+                <li class="nav-header">Ses fans</li>
+            #{/else}
+            #{list items:current.leads, as:'fan'}
+            <li class="nav-fan"><a href="@{Profil.fiche(fan.id,best.name.slugify())}">
+                <img src="@@{Application.index()}${fan.getAvatarPath()}" class="img-rounded"/>${fan.name}</a></li>        
+            #{/list}
+        </ul>
+    </div>
+    <div class="span7 flux">
+        #{if controllers.Security.connected() == current.email}
+        <div class="sharebox">
+            #{form @Profil.partager(), enctype:'multipart/form-data'}
+                <textarea name="message"></textarea>
+                <button type="submit" class="share btn btn-primary"><i class="icon icon-plus icon-white"></i> Partager !</button>
+                <label for="photo">Sélectionnez une image <input type="file" name="image" placeholder="chemin du fichier"></label>
+            #{/form}
+        </div>
+        #{/if}
+        #{else}        
+            #{if !controllers.Security.connectedUser().follows.contains(current)}
+            <div class="invitebox row">
+                <a href="@{Profil.follow(current.id,current.name.slugify())}" class="btn btn-primary span3 offset1"><i class="icon icon-white icon-user"></i>Suivre cette personne</a>
+            </div>
+            #{/if}
+            #{else}
+            <div class="invitebox row">
+                <a href="@{Profil.unfollow(current.id,current.name.slugify())}" class="btn span3 offset1"><i class="icon icon-user"></i>Ne plus suivre cette personne</a>
+            </div>
+            #{/else}
+        #{/else}
+        #{list items:flux, as:'activity'}
+            #{renderActivity activity:activity, pov:current/}
+        #{/list}
+    </div>
+    <div class="span2">
+        pub pub
+    </div>
+</div>
+
+<div class="modal-backdrop hide">
+</div>
+
+    <div class="full-photo hide">
+        <img class="img-polaroid" src=""/>
+        <span class="close-full-photo"><i class="icon icon-remove"></i> fermer</span>
+    </div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("a.iLikeIt").click(function(){
+        var part = $(this).attr("rel");
+        var ele = $(this);
+        $.post(
+            '@{Partage.like()}',
+            {activity: part},
+            function(){
+               location.reload();
+            });
+    });
+    $("a.iDislikeIt").click(function(){
+        var part = $(this).attr("rel");
+        var ele = $(this);
+        $.post(
+            '@{Partage.dislike()}',
+            {activity: part},
+            function(){
+               location.reload();
+            });
+    });
+});
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+       $(".apercu").click(function(){
+           $('.full-photo img').attr("src",$(this).attr("rel"));
+           $('.modal-backdrop').show();
+           $('.full-photo').show();
+       }) 
+       $(".close-full-photo, .full-photo").click(function(){
+           $('.modal-backdrop').hide();
+           $('.full-photo').hide();
+       })
+    });
+</script>

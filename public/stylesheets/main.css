@@ -1,0 +1,161 @@
+
+.navbar-search input.search-query{
+    height: inherit;
+    padding: 5px 10px 1px !important;
+}
+.navbar-search{
+    margin-top: 8px;
+    margin-right: 0px;
+}
+
+.nav-fan {
+    height: 30px;
+}
+.nav-fan img {
+    margin-right: 5px;
+    height: 26px;
+    width: 26px;
+}
+
+a {
+    cursor: pointer;
+}
+a:hover {
+    text-decoration: none;
+}
+.activity .avatar {
+    float:left;
+    margin-right: 5px;
+    margin-top: 5px;
+    width: 60px;
+    height: 60px;
+}
+.activity h4 {
+    margin-bottom: 0px;
+    padding-top: 5px;
+}
+.activity p {
+    margin: 0px;
+    padding-right: 65px;
+}
+
+.activity:hover {
+    border-color: #CCCCCC;
+}
+
+.activity {
+    border-left: 1px solid #EEEEEE;
+    border-right: 1px solid #EEEEEE;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    margin-bottom: 25px;
+}
+.activity:hover .actionbox {
+    display: block;
+}
+.activity .actionbox{
+    display: none;
+    float: right;
+    width: 60px;
+}
+
+.activity .btn{
+    margin-top: 5px;
+    width: 38px;
+}
+.activity .btn-half{
+    width: 13px;
+    padding-left: 6px;
+    padding-right: 7px;
+}
+
+.flux .sharebox{
+    height: 100px;
+    margin: 0 10px 20px;
+}
+.flux .sharebox textarea {
+    width: 352px;
+    height: 60px;
+    display: inline-block;
+    margin: 0 0 0 0px;
+}
+.flux .sharebox button {
+    width: 150px;
+    height: 70px;
+    display: inline-block;
+    margin: 0 0 0 0;
+}
+
+.search-result img {
+    margin-right: 5px;
+}
+
+.search-result h5:hover {
+    background-color: #E3E3E3;
+}
+
+.invitebox {
+    clear: both;
+    width: 100%;
+}
+
+.apercu {
+    width: 210px;
+    height: 160px;
+    margin-bottom: 20px;
+    line-height: 160px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.apercu:hover img {
+    box-shadow: 0px 0px 10px grey;
+}
+
+.apercu .action {
+    position: absolute;
+    display: none;
+}
+
+.apercu:hover .action {
+    display: block;
+}
+
+.apercu .setAvatar {
+    margin-top: 40px;
+}
+.full-photo {
+        
+    text-align: center;
+    z-index: 1500;
+    position: fixed;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    margin-bottom: 30px;
+}
+
+.close-full-photo {
+    position: absolute;
+    padding: 2px 5px;
+    top: 5px;
+    font-variant: small-caps;
+    cursor: pointer;
+    margin-left: -75px;
+    background: white;
+    display:none;
+}
+
+.full-photo:hover .close-full-photo {
+    display: inline;
+}
+
+.activity-photos .apercu.span3{
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
+
+.activity-photos {
+    padding-left: 40px;
+}

@@ -1,0 +1,6 @@
+CompilerOracle: exclude jregex/Pretokenizer.next
+Listening for transport dt_socket at address: 8000
+23:06:03,135 INFO  ~ Starting D:\dev\play\socialNetwork
+23:06:03,146 INFO  ~ Module secure is available (D:\dev\play\modules\secure)
+23:06:04,126 WARN  ~ You're running Play! in DEV mode
+23:06:04,666 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...

@@ -1,0 +1,42 @@
+#{extends 'main.html' /}
+#{set title:'Profil' /}
+
+<div class="page-header">
+  
+    <h1>Choisir votre avatar</h1>
+
+</div>
+<script src="@{'/public/javascripts/jquery.Jcrop.min.js'}"></script>
+<link rel="stylesheet" media="screen" href="@{'/public/stylesheets/jquery.Jcrop.min.css'}">
+<script type="text/javascript">
+    $(document).ready(function(){
+       $("#avatar").load(function(){         
+            var width = $("#avatar").width();
+            var height = $("#avatar").height();
+           $("#avatar").Jcrop({
+               aspectRatio: 1,
+               minSize: [60,60],
+               setSelect: [width/2-30, height/2-30, width/2+30, height/2+30],
+               bgOpacity: 0.3,
+               onSelect: function(c){
+                   $("#x1").val(c.x);
+                   $("#y1").val(c.y);
+                   $("#x2").val(c.x2);
+                   $("#y2").val(c.y2);
+               }
+           }); 
+       })
+    });
+</script>
+
+<div class="row">
+    <div class="span12">
+        <p>Sélectionnez la zone que vous voulez comme avatar et appuyez sur le gros bouton bleu. #{form @Photos.makeAvatar()}<input type="hidden" name="id" value="${photo.id}"/><input type="hidden" id="x1" name="x1" value="0"/><input type="hidden" id="y1" name="y1" value="0"/><input type="hidden" id="x2" name="x2" value="0"/><input type="hidden" id="y2" name="y2" value="0"/><input type="submit" class="btn btn-primary" value="le gros bouton bleu"/>#{/form}</p>
+        <img id="avatar" src="@@{Application.index}${photo.getPhotoPath()}"/>
+    </div>
+    <div class="span2">
+      pub pub  
+    </div>
+</div>
+
+    

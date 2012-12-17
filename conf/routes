@@ -1,0 +1,38 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                                       Application.index
+
+GET     /inscription                            Inscription.inscription().secure()
+POST     /inscription                           Inscription.doInscription().secure()
+
+GET     /profil                                 Profil.index()
+POST    /profil/share                           Profil.partager()
+GET     /profil/{id}/{slugname}                 Profil.fiche()
+
+GET     /photos                                 Photos.index()
+POST    /photos/upload                          Photos.upload()
+GET     /photos/remove/{id}                     Photos.remove()
+GET     /photos/avatar/{id}                     Photos.avatar()
+
+GET    /follow/{id}                             Profil.follow()
+GET    /unfollow/{id}                            Profil.unfollow()
+
+GET     /recherche                              Recherche.index()
+POST    /recherche                              Recherche.chercher()
+
+POST    /ajax/partage/like                      Partage.like()
+POST    /ajax/partage/dislike                   Partage.dislike()
+
+POST     /key                                    Application.getAKey().secure()
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}

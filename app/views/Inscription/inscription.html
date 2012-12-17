@@ -1,0 +1,30 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+#{form @Inscription.doInscription()}
+ <div class="form-horizontal">
+              <div class="control-group">
+                <label class="control-label" for="user.name">Pseudonyme</label>
+                <div class="controls">
+                  <input type="text" name="user.name" placeholder="Nom qui apparaitra">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="user.email">Email</label>
+                <div class="controls">
+                  <input type="text" name="user.email" placeholder="Doit être valide">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="user.password">Password</label>
+                <div class="controls">
+                  <input type="password" name="user.password">
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary">Envoyer</button>
+                </div>
+              </div>
+        </div>
+#{/form}

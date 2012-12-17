@@ -1,0 +1,54 @@
+#{extends 'main.html' /}
+#{set title:'Profil' /}
+
+<div class="page-header">
+  
+    <h1>Chercher quelqu'un</h1>
+
+</div>
+
+<div class="row">
+    <div class="span10">
+        <div class="row">
+            <div class="span10">
+            #{form @Recherche.chercher(), class:'form-horizontal'}
+            <div class="control-group">
+                <label class="control-label" for="byName">Par nom</label>
+                <div class="controls">
+                  <input type="text" name="byName" placeholder="tout ou partie du nom">
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label" for="byEmail">Par email</label>
+                <div class="controls">
+                  <input type="text" name="byEmail" placeholder="adresse mail exacte">
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary">Rechercher</button>
+                </div>
+            </div>
+            #{/form}
+            </div>
+        </div>
+        <div class="row">
+            <div class="span10 row">
+            #{if luser.size() == 0}
+            <h4 class="span10">Aucun Résultat</h4>
+            #{/if}
+            #{if luser.size() > 0} 
+            <h4 class="span10">${luser.size()} résultats</h4>
+               #{list items: luser, as: 'user'}
+               <div class="search-result span2">
+                   <h5 class="well well-small"><img src="http://placehold.it/26x26" class="img-rounded"/><a href="@{Profil.fiche(user.id,user.name.slugify())}">${user.name}</a></h5>
+               </div>
+               #{/list}
+            #{/if}
+            </div>
+        </div>
+    </div>
+    <div class="span2">
+      pub pub  
+    </div>
+</div>

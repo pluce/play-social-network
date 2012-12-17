@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+        <meta charset="${_response_encoding}">
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap.min.css'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+        #{get 'moreStyles' /}
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <script src="@{'/public/javascripts/jquery.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/bootstrap.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        #{get 'moreScripts' /}
+    </head>
+    <body>
+        <div class="container">
+            <div class="navbar navbar-static-top navbar-inverse" >
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                          <li><a href="@{Application.index}">Accueil</a></li>                         
+                        #{secure.check "user"}
+                          <li><a href="@{Profil.index}">Profil</a></li>
+                        #{/secure.check}
+                        </ul>
+                      </div>
+                </div>
+                <div class="page-header">
+                  <h1>Réseau social</h1>
+                </div>
+            #{doLayout /}
+        </div>
+    </body>
+</html>
+
