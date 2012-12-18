@@ -32,7 +32,9 @@ public class Photos extends Controller{
     }
     
     public static void upload(File image) throws IOException{
-        
+        if(image == null){
+            index();
+        }
         ShareService.sharePhoto(Security.connectedUser(), image);
         
         index();

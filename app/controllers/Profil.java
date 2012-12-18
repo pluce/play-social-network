@@ -37,7 +37,9 @@ public class Profil extends Controller {
         if(current == null){
             notFound("User "+id+" not found.");
         }
-        if(current.email.equals(Security.connected())) index();
+        if(current.id == Security.connectedUser().id){
+            index();
+        }
         List<Activity> flux = getFluxVisibleDe(id);
         renderTemplate("Profil/index.html",current,flux);
     }
