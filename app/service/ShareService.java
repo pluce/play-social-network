@@ -56,7 +56,9 @@ public class ShareService {
     
     public static Activity sharePhoto(User writer, File uploadedFile) throws IOException{     
         Photo p = computePhotoUpload(uploadedFile);
-        Activity act = Activity.find("SELECT a FROM Activity a WHERE a.owner = ? AND a.timeShared > (CURRENT_TIMESTAMP - 3600) ORDER BY a.timeShared DESC",writer).first();
+        Date oldDate = new Date();
+        oldDate = new Date(oldDate.getTime() - 3600*1000);
+        Activity act = Activity.find("SELECT a FROM Activity a WHERE a.owner = ? AND a.timeShared > ? ORDER BY a.timeShared DESC",writer,oldDate).first();
         if(act != null && act.photos.size() > 0){
             return updateActivityWithNewPhoto(act, p);
         } else {
@@ -65,6 +67,8 @@ public class ShareService {
     }
     
     public static Activity updateActivityWithNewPhoto(Activity activity, Photo photo){
+        activity.owner.photos.add(photo);
+        activity.owner.save();
         activity.photos.add(photo);
         activity.timeShared = new Date();
         activity.save();
