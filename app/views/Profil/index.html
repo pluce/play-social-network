@@ -31,7 +31,7 @@
                 <li class="nav-header">Ses fans</li>
             #{/else}
             #{list items:current.leads, as:'fan'}
-            <li class="nav-fan"><a href="@{Profil.fiche(fan.id,best.name.slugify())}">
+            <li class="nav-fan"><a href="@{Profil.fiche(fan.id,fan.name.slugify())}">
                 <img src="@@{Application.index()}${fan.getAvatarPath()}" class="img-rounded"/>${fan.name}</a></li>        
             #{/list}
         </ul>
