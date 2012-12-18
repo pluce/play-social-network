@@ -14,6 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import play.Play;
 import play.db.jpa.Model;
 
@@ -22,6 +23,7 @@ import play.db.jpa.Model;
  * @author Pluce
  */
 @Entity
+@Table(name="membre")
 public class User extends Model{
     public String name;
     public String password;

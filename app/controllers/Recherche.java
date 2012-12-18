@@ -19,7 +19,8 @@ import play.mvc.With;
 @With(Secure.class)
 public class Recherche extends Controller {
     public static void index(){
-        render();
+       List<User> luser = new ArrayList<User>();
+        render(luser);
     }
     public static void chercher(String byName, @Email String byEmail){
        List<User> luser = new ArrayList<User>();
