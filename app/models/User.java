@@ -18,6 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import play.Play;
+import play.data.validation.Email;
+import play.data.validation.Required;
+import play.data.validation.Unique;
 import play.db.jpa.Model;
 
 /**
@@ -27,8 +30,16 @@ import play.db.jpa.Model;
 @Entity
 @Table(name="membre")
 public class User extends Model{
+    
+    @Required
     public String name;
+    
+    @Required
     public String password;
+    
+    @Unique
+    @Email
+    @Required
     public String email;  
     
     @OneToMany(cascade=CascadeType.REMOVE)

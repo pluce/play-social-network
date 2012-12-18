@@ -13,11 +13,11 @@
         #{get 'moreScripts' /}
     </head>
     <body>
-        <div class="container">
+      <div class="container">
             <div class="navbar navbar-static-top navbar-inverse" >
                     <div class="navbar-inner">
-                        <ul class="nav">
-                          <li><a href="@{Application.index}">Accueil</a></li>                         
+                        <a class="brand" href="@{Application.index}">Réseau Social</a>
+                        <ul class="nav">                        
                         #{secure.check "user"}
                           <li><a href="@{Profil.index}">Profil</a></li>
                         #{/secure.check}

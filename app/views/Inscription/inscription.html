@@ -1,18 +1,26 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
 
+<div class="page-header">
+    <h1>Inscrivez-vous, c'est gratuit !</h1>
+</div>
 #{form @Inscription.doInscription()}
  <div class="form-horizontal">
+     #{ifErrors}
+        <p class="error">
+            Tout les champs sont requis !
+        </p>
+    #{/ifErrors}
               <div class="control-group">
                 <label class="control-label" for="user.name">Pseudonyme</label>
                 <div class="controls">
-                  <input type="text" name="user.name" placeholder="Nom qui apparaitra">
+                  <input type="text" name="user.name" value="${user?.name}" placeholder="Nom qui apparaitra">
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label" for="user.email">Email</label>
                 <div class="controls">
-                  <input type="text" name="user.email" placeholder="Doit être valide">
+                  <input type="text" name="user.email" value="${user?.email}" placeholder="Doit être valide">
                 </div>
               </div>
               <div class="control-group">
