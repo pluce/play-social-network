@@ -1,0 +1,13 @@
+play-social-network
+-------------------
+
+This project is a basic social network made with Play! Framework 1.2.5.
+
+Basically, I had to work on Play for a student project, and I wanted to train myself so I developped this.
+
+It's pretty basic right now.
+
+An online version is available here: http://play-social-network.herokuapp.com/
+DB is regularly cleaned as it's a dev version
+
+Feel free to contribute.
