@@ -5,6 +5,8 @@
 # Home page
 GET     /                                       Application.index
 
+*       /admin                                  module:crud
+
 GET     /inscription                            Inscription.inscription().secure()
 POST     /inscription                           Inscription.doInscription().secure()
 
