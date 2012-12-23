@@ -34,7 +34,7 @@ public class Photo extends Model{
     public static final String THUMBS_PATH = "thumbs/";
     public static final String AVATAR_PATH = "avatars/";
     
-    public static final String NO_AVATAR_PATH = "public/share/no_avatar.jpg";
+    public static final String NO_AVATAR_PATH = "public/images/no-avatar.jpg";
     
     
     public ExtendedS3Blob photo;
