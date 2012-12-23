@@ -10,7 +10,7 @@
         #{/else}
        <!-- <a class="btn btn-small btn-primary">1 <i class="icon icon-comment icon-white"></i></a>-->
     </div>
-    <img src="@@{Application.index()}${_activity.owner.getAvatarPath()}" class="avatar img-rounded"/>
+    <img src="${_activity.owner.getAvatarPath()}" class="avatar img-rounded"/>
     <h4><a href="@{Profil.fiche(_activity.owner.id,_activity.owner.name.slugify())}">${_activity.owner.name}</a> <small>${_activity.timeShared.since()}</small></h4>
     <p>${_activity.message}</p>
     

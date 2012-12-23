@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
 import play.Play;
@@ -22,6 +23,7 @@ import play.data.validation.Email;
 import play.data.validation.Required;
 import play.data.validation.Unique;
 import play.db.jpa.Model;
+import plugins.s3blobs.ExtendedS3Blob;
 
 /**
  *
@@ -41,6 +43,9 @@ public class User extends Model{
     @Email
     @Required
     public String email;  
+    
+    @OneToOne
+    public Photo avatar;
     
     @OneToMany(cascade=CascadeType.REMOVE)
     public List<Photo> photos = new ArrayList<Photo>();
@@ -64,11 +69,11 @@ public class User extends Model{
     }
     
     public String getAvatarPath(){
-        File f = Play.getFile(Photo.AVATAR_PATH+id+".jpg");
-        if(f.exists()){
-            return Photo.AVATAR_PATH+id+".jpg";
+        
+        if(avatar != null){
+            return ExtendedS3Blob.AWS_URL+avatar.avatar.bucket+"/"+avatar.avatar.key;
         } else {
-            return Photo.AVATAR_PATH+"no-avatar.jpg";
+            return Photo.NO_AVATAR_PATH;
         }
     }
     

@@ -46,10 +46,13 @@ public class Profil extends Controller {
     
     public static void partager(String message, File image) throws IOException{
         User current = Security.connectedUser();
-        if(message!=null && !message.isEmpty()){
+        if(image != null || (message != null && !message.isEmpty())){
             if(image == null){
                 ShareService.share(current, message);
             } else {
+                if(message == null || message.isEmpty()){
+                    message = current.name + " a partagé une photo.";
+                }
                 ShareService.shareWithPhoto(current, message, image);
             }    
         }

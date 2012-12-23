@@ -1,7 +1,7 @@
-<div rel="${_photo.getPhotoPath()}" class="apercu span3">
+<div rel="${_photo.photo.getUrl()}" class="apercu span3">
     #{if _showActions == true}
         <a title="Supprimer définitivement" href="@{Photos.remove(_photo.id)}" class="btn btn-danger action delete"><i class="icon icon-white icon-remove"></i></a>
         <a title="Choisir comme avatar" href="@{Photos.avatar(_photo.id)}" class="btn btn-primary action setAvatar"><i class="icon icon-white icon-camera"></i></a>
     #{/if}
-    <img src="${_photo.getThumbPath()}" class="img-polaroid">
+    <img src="${_photo.thumb.getUrl()}" class="img-polaroid">
 </div>

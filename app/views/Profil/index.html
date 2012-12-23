@@ -22,7 +22,7 @@
             #{/else}
             #{list items:current.follows, as:'best'}
             <li class="nav-fan"><a href="@{Profil.fiche(best.id,best.name.slugify())}">
-                <img src="@@{Application.index()}${best.getAvatarPath()}" class="img-rounded"/>${best.name}</a></li>        
+                <img src="${best.getAvatarPath()}" class="img-rounded"/>${best.name}</a></li>        
             #{/list}
             #{if controllers.Security.connected() == current.email}
                 <li class="nav-header">Vos fans</li>
@@ -32,7 +32,7 @@
             #{/else}
             #{list items:current.leads, as:'fan'}
             <li class="nav-fan"><a href="@{Profil.fiche(fan.id,fan.name.slugify())}">
-                <img src="@@{Application.index()}${fan.getAvatarPath()}" class="img-rounded"/>${fan.name}</a></li>        
+                <img src="${fan.getAvatarPath()}" class="img-rounded"/>${fan.name}</a></li>        
             #{/list}
         </ul>
     </div>

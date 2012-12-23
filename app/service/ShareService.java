@@ -38,18 +38,7 @@ public class ShareService {
     }
     
     private static Photo computePhotoUpload(File uploadedFile) throws IOException{
-        String mimeType = MimeTypes.getContentType(uploadedFile.getName());
-        if(!(mimeType.equals("image/jpg")||mimeType.equals("image/jpeg"))){
-            throw new IllegalArgumentException("Not a jpg picture");
-        }
-        String photoName = Codec.UUID()+".jpg";
-        File photo = Play.getFile(Photo.PHOTOS_PATH+photoName);
-        photo.createNewFile();
-        Images.resize(uploadedFile, photo,800,600,true);
-        File thumb = Play.getFile(Photo.THUMBS_PATH+photoName);
-        thumb.createNewFile();
-        Images.resize(uploadedFile, thumb,200,150,true);
-        Photo p = new Photo(photoName, new Date());
+        Photo p = new Photo(uploadedFile, new Date());
         p.save();
         return p;
     }

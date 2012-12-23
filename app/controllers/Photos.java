@@ -5,7 +5,9 @@
 package controllers;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import models.Activity;
 import models.Photo;
@@ -58,11 +60,11 @@ public class Photos extends Controller{
     
     public static void makeAvatar(Long id, Integer x1, Integer y1, Integer x2, Integer y2) throws IOException{
         Photo photoBase = Photo.findById(id);
+        photoBase.makeAvatar(x1, y1, x2, y2);
+        photoBase.save();
         User current = Security.connectedUser();
-        File photoFile = Play.getFile(Photo.PHOTOS_PATH+photoBase.fileName);
-        File avatarFile = Play.getFile(Photo.AVATAR_PATH+current.id+".jpg");
-        avatarFile.createNewFile();
-        Images.crop(photoFile, avatarFile, x1, y1, x2, y2);
+        current.avatar = photoBase;
+        current.save();
         Profil.index();
     }
 }
