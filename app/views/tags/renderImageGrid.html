@@ -1,0 +1,36 @@
+<div class="image-grid">
+    #{list items: _photos, as:'photo'}
+        <div rel="@@{Photos.renderPhoto(photo.id)}" style="background-image: url('@@{Photos.renderThumb(photo.id)}')" class="apercu">
+            
+        </div>
+    #{/list}
+</div>
+<script type="text/javascript">
+    var photoStreamSocket;
+    $(document).ready(function(){
+        photoStreamSocket = new WebSocket('@@{TheWallWebSocket.update}');
+        photoStreamSocket.onmessage = function(event) {
+            var newPic = $('.image-grid div:first').clone(true);
+            newPic.attr('rel','/photos/'+event.data);
+            newPic.css('background-image','url("/photos/'+event.data+'/thumb")');
+            newPic.css('width','0px');
+            $('.image-grid').prepend(newPic);
+            newPic.animate({width:97},'slow','swing',function(){$(this).css('width','');});
+        }
+    });
+</script>
+<style>
+    .image-grid .apercu {
+        width: 97px;
+        height: 97px;
+        background: url('') center center no-repeat transparent;
+        float: left;
+        margin: 0px;
+    }    
+    
+    .image-grid .apercu:hover {
+        width: 95px;
+        height: 95px;
+        border: 1px solid #E3E3E3;
+    }
+</style>

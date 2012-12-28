@@ -11,6 +11,7 @@ import models.User;
 import play.Play;
 import play.db.jpa.JPABase;
 import play.libs.Codec;
+import play.libs.F;
 import play.libs.Images;
 import play.libs.MimeTypes;
 
@@ -24,6 +25,11 @@ import play.libs.MimeTypes;
  * @author Pluce
  */
 public class ShareService {
+    
+    
+    public static F.EventStream photoStream = new F.EventStream();
+    
+    
     public static Activity share(User writer, String message){
         Activity act = new Activity();
         act.owner = writer;
@@ -40,6 +46,7 @@ public class ShareService {
     private static Photo computePhotoUpload(File uploadedFile) throws IOException{
         Photo p = new Photo(uploadedFile, new Date());
         p.save();
+        photoStream.publish(""+p.id);
         return p;
     }
     

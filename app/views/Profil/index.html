@@ -11,7 +11,7 @@
 #{/else}
 </div>
 
-<div class="row">
+<div class="row-fluid">
     <div class="span3">
         <ul class="nav nav-list">
             #{if controllers.Security.connected() == current.email}
@@ -22,7 +22,7 @@
             #{/else}
             #{list items:current.follows, as:'best'}
             <li class="nav-fan"><a href="@{Profil.fiche(best.id,best.name.slugify())}">
-                <img src="${best.getAvatarPath()}" class="img-rounded"/>${best.name}</a></li>        
+                <img src="@@{Photos.renderAvatar(best.id)}" class="img-rounded"/>${best.name}</a></li>        
             #{/list}
             #{if controllers.Security.connected() == current.email}
                 <li class="nav-header">Vos fans</li>
@@ -32,7 +32,7 @@
             #{/else}
             #{list items:current.leads, as:'fan'}
             <li class="nav-fan"><a href="@{Profil.fiche(fan.id,fan.name.slugify())}">
-                <img src="${fan.getAvatarPath()}" class="img-rounded"/>${fan.name}</a></li>        
+                <img src="@@{Photos.renderAvatar(fan.id)}" class="img-rounded"/>${fan.name}</a></li>        
             #{/list}
         </ul>
     </div>
@@ -58,9 +58,7 @@
             </div>
             #{/else}
         #{/else}
-        #{list items:flux, as:'activity'}
-            #{renderActivity activity:activity, pov:current/}
-        #{/list}
+        #{renderActivityList list:flux/}
     </div>
     <div class="span2">
         pub pub

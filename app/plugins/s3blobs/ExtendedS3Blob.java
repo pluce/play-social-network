@@ -53,8 +53,12 @@ public class ExtendedS3Blob implements BinaryField, UserType {
 
 	@Override
 	public void set(InputStream is, String type) {
+		set(is,type,Codec.UUID());
+	}
+        
+	public void set(InputStream is, String type, String key) {
 		this.bucket = s3Bucket;
-		this.key = Codec.UUID();
+		this.key = key;
 		ObjectMetadata om = new ObjectMetadata();
 		om.setContentType(type);
 		s3Client.putObject(bucket, key, is, om);

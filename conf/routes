@@ -14,10 +14,17 @@ GET     /profil                                 Profil.index()
 POST    /profil/share                           Profil.partager()
 GET     /profil/{id}/{slugname}                 Profil.fiche()
 
+GET     /thewall                                TheWall.index()
+WS      /thewall/update                         TheWallWebSocket.update()
+
 GET     /photos                                 Photos.index()
+GET     /photos/{id}                            Photos.renderPhoto()
+GET     /photos/{id}/thumb                      Photos.renderThumb()
 POST    /photos/upload                          Photos.upload()
 GET     /photos/remove/{id}                     Photos.remove()
 GET     /photos/avatar/{id}                     Photos.avatar()
+
+GET     /avatar/{id}                            Photos.renderAvatar()
 
 GET    /follow/{id}                             Profil.follow()
 GET    /unfollow/{id}                            Profil.unfollow()

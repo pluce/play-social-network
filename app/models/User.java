@@ -68,15 +68,6 @@ public class User extends Model{
         this.email = email;
     }
     
-    public String getAvatarPath(){
-        
-        if(avatar != null){
-            return ExtendedS3Blob.AWS_URL+avatar.avatar.bucket+"/"+avatar.avatar.key;
-        } else {
-            return Photo.NO_AVATAR_PATH;
-        }
-    }
-    
     @PreRemove
     public void beforeRemove(){
         for(User u: follows){

@@ -23,7 +23,7 @@ import play.db.jpa.Model;
  * @author Pluce
  */
 @Entity
-public class Activity extends Model {
+public class Activity extends Model implements Commentable {
     @ManyToOne
     public User owner;
     
@@ -39,4 +39,32 @@ public class Activity extends Model {
     public String message;
     
     public boolean isPublic = false;
+    
+    @OneToMany(mappedBy="relatedActivity")
+    public List<Activity> comments;
+    
+    @ManyToOne
+    public Activity relatedActivity;
+    
+    @ManyToOne
+    public Photo relatedPhoto;
+    
+    public Boolean rootActivity = true;
+
+    public List<Activity> getComments() {
+        return comments;
+    }
+
+    public Activity comment(User writer, String message) {
+        Activity comm = new Activity();
+        comm.owner = writer;
+        comm.message = message;
+        comm.timeShared = new Date();
+        comm.relatedActivity = this;
+        this.getComments().add(comm);
+        comm.save();
+        this.save();
+        
+        return comm;
+    }
 }

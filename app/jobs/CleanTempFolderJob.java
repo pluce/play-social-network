@@ -19,8 +19,8 @@ import play.libs.Files;
 @Every("1h")
 public class CleanTempFolderJob extends Job{
     public void doJob() {
-        File tmpDir = Play.getFile("/public/shared/temp/");
+        /*File tmpDir = Play.getFile("/public/shared/temp/");
         Files.deleteDirectory(tmpDir);
-        tmpDir.mkdir();
+        tmpDir.mkdir();*/
     }
 }

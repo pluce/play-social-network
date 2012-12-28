@@ -86,7 +86,7 @@ public class Profil extends Controller {
     }
     
     private static List<Activity> getFluxVisiblePour(Long id){
-        Query query = JPA.em().createQuery("SELECT p FROM Activity p WHERE p.owner.id = ? OR p.owner IN(SELECT f FROM User u, IN(u.follows) f WHERE u.id = ?) ORDER BY p.timeShared DESC").setParameter(1, id).setParameter(2, id);
+        Query query = JPA.em().createQuery("SELECT p FROM Activity p WHERE p.rootActivity = true AND (p.owner.id = ? OR p.owner IN(SELECT f FROM User u, IN(u.follows) f WHERE u.id = ?)) ORDER BY p.timeShared DESC").setParameter(1, id).setParameter(2, id);
         return (List<Activity>)query.getResultList();
     }
     
@@ -95,7 +95,7 @@ public class Profil extends Controller {
        // User current = User.find("byEmail",Security.connected()).first();
         Query query;
         //if(u.leads.contains(current)){
-            query = JPA.em().createQuery("SELECT p FROM Activity p WHERE p.owner.id = ? ORDER BY p.timeShared DESC").setParameter(1, id);
+            query = JPA.em().createQuery("SELECT p FROM Activity p WHERE p.rootActivity = true AND p.owner.id = ? ORDER BY p.timeShared DESC").setParameter(1, id);
         //} else {
           //  query = JPA.em().createQuery("SELECT p FROM Activity p WHERE p.owner.id = ? AND p.isPublic = true ORDER BY p.timeShared DESC").setParameter(1, id);
         //}
