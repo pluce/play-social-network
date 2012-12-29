@@ -12,7 +12,7 @@ import models.User;
  */
 public class Security extends Secure.Security {
     
-    static User connectedUser(){
+    public static User connectedUser(){
         return User.find("byEmail",connected()).first();
     }
     

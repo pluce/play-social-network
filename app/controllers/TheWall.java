@@ -9,11 +9,15 @@ import java.util.List;
 import models.Photo;
 import play.db.jpa.GenericModel;
 import play.mvc.Controller;
+import play.mvc.With;
 
 /**
  *
  * @author Pluce
  */
+
+@Check("user")
+@With(Secure.class)
 public class TheWall extends Controller{
     public static void index(){
         List<Photo> theWall = Photo.find("order by timeUploaded desc").fetch(48);

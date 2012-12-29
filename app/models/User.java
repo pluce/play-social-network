@@ -47,7 +47,7 @@ public class User extends Model{
     @OneToOne
     public Photo avatar;
     
-    @OneToMany(cascade=CascadeType.REMOVE)
+    @OneToMany(cascade=CascadeType.REMOVE,mappedBy="owner")
     public List<Photo> photos = new ArrayList<Photo>();
     
     @ManyToMany(mappedBy="leads")

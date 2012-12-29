@@ -1,24 +1,41 @@
-<div class="media">
+<div class="media activity" id="activity-${_activity.id}">
   <a class="pull-left" href="@{Profil.fiche(_activity.owner.id,_activity.owner.name.slugify())}">
-    <img class="media-object" src="@@{Photos.renderAvatar(_activity.owner.id)}">
+    <img class="media-object avatar" src="@@{Photos.renderAvatar(_activity.owner.id)}">
   </a>
   <div class="media-body">
     <h4 class="media-heading">
         <a href="@{Profil.fiche(_activity.owner.id,_activity.owner.name.slugify())}">${_activity.owner.name}</a>
         <small> ${_activity.timeShared.since()}</small>
-        #{if _activity.likes.contains(_pov)}
+        #{if _activity.likes.contains(controllers.Security.connectedUser())}
             <a rel="${_activity.id}" href="javascript:void()" title="Ne plus aimer" class="btn btn-mini iDislikeIt">${_activity.likes.size()} <i class="icon icon-heart"></i></a>
         #{/if}
         #{else}
             <a rel="${_activity.id}" href="javascript:void()" title="Aimer" class="btn btn-mini btn-success iLikeIt">${_activity.likes.size()} <i class="icon icon-heart icon-white"></i></a>
         #{/else}
-        <a rel="${_activity.id}" href="javascript:void()" title="Commenter" class="btn btn-mini btn-success commentIt">${_activity.comments.size()} <i class="icon icon-heart icon-white"></i></a>
+        <a rel="${_activity.id}" href="javascript:void()" title="Commenter" class="btn btn-mini btn-success commentIt">${_activity.comments.size()} <i class="icon icon-comment icon-white"></i></a>
     </h4>
     <p>${_activity.message}</p>
-<div class="activity-photos row">
-    #{list items: _activity.photos, as:'photo'}
-        #{renderImageThumb photo:photo, showActions: false/}
-    #{/list}
-</div>
+    <div class="activity-photos row">
+        #{list items: _activity.photos, as:'photo'}
+            #{renderImageThumb photo:photo, showActions: false/}
+        #{/list}
+    </div>
+    <div id="comments-${_activity.id}" class="comments hide">
+        #{list items: _activity.getComments(), as:'comment'}
+            #{renderSingleActivity activity:comment/}
+        #{/list}
+        <div class="media" class="comment-form">
+            <div class="media-body">
+                <h4 class="media-heading">
+                    Ajoutez votre commentaire
+                </h4>                
+            </div>
+            <p>   
+                <form class="form-inline">
+                    <input type="text" id="input-comment-${_activity.id}" name="commentMessage"/><input rel="${_activity.id}" type="button" class="btn btn-primary sendComment" value="Commenter"/>
+                </form>
+            </p>
+        </div>
+    </div>
   </div>
 </div>

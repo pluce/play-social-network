@@ -11,9 +11,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,7 +35,7 @@ import plugins.s3blobs.ExtendedS3Blob;
  * @author Pluce
  */
 @Entity
-public class Photo extends Model implements Commentable{
+public class Photo extends Model implements Commentable, Likeable{
     
     public static final String PHOTOS_PATH = "public/shared/photos/";
     public static final String THUMBS_PATH = "thumbs/";
@@ -43,11 +48,17 @@ public class Photo extends Model implements Commentable{
     public ExtendedS3Blob thumb;
     public ExtendedS3Blob avatar;
     
+    @ManyToOne
+    public User owner;
+    
     @Temporal(TemporalType.TIMESTAMP)
     public Date timeUploaded;
     
     @OneToMany(mappedBy="relatedPhoto")
-    public List<Activity> comments;
+    public List<Activity> comments = new ArrayList<Activity>();
+    
+    @ManyToMany
+    public Set<User> likes = new HashSet<User>();
     
     public Photo(){}
     public Photo(File uploadedFile,Date timeUploaded ) throws IOException{
@@ -117,6 +128,7 @@ public class Photo extends Model implements Commentable{
         comm.message = message;
         comm.timeShared = new Date();
         comm.relatedPhoto = this;
+        comm.rootActivity = false;
         this.getComments().add(comm);
         comm.save();
         this.save();
@@ -124,4 +136,16 @@ public class Photo extends Model implements Commentable{
         return comm;
     }
     
+
+    public Set<User> getLikers() {
+        return likes;
+    }
+
+    public void like(User liker) {
+        this.likes.add(liker);
+    }
+
+    public void dislike(User liker) {        
+        this.likes.remove(liker);
+    }
 }

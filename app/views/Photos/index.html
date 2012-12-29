@@ -7,10 +7,10 @@
 
 </div>
 
-<div class="row">
+<div class="row-fluid">
     <div class="span10">
-        <div class="row">
-            <div class="span10">
+        <div class="row-fluid">
+            <div class="span12">
             #{form @Photos.upload(), enctype:'multipart/form-data', class:'form-horizontal'}
             <div class="control-group">
                 <label class="control-label" for="photo">Sélectionnez une image</label>
@@ -26,8 +26,8 @@
             #{/form}
             </div>
         </div>
-        <div class="row">
-            <div class="span10 row">  
+        <div class="row-fluid">
+            <div class="span12 row-fluid">  
                 #{list items: controllers.Security.connectedUser().photos, as:'photo'}
                     #{renderImageThumb photo:photo, showActions:true/}
                 #{/list}
@@ -38,25 +38,3 @@
       pub pub  
     </div>
 </div>
-
-<div class="modal-backdrop hide">
-</div>
-
-    <div class="full-photo hide">
-        <img class="img-polaroid" src=""/>
-        <span class="close-full-photo"><i class="icon icon-remove"></i> fermer</span>
-    </div>
-<script type="text/javascript">
-    $(document).ready(function(){
-       $(".apercu").click(function(){
-           $('.full-photo img').attr("src",$(this).attr("rel"));
-           $('.modal-backdrop').show();
-           $('.full-photo').show();
-       }) 
-       $(".close-full-photo, .full-photo").click(function(){
-           $('.modal-backdrop').hide();
-           $('.full-photo').hide();
-       })
-    });
-</script>
-    

@@ -5,6 +5,8 @@
         <title>#{get 'title' /}</title>
         <meta charset="${_response_encoding}">
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap.min.css'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/bootstrap-responsive.min.css'}">
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/theme.css'}">
         <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
@@ -13,7 +15,7 @@
         #{get 'moreScripts' /}
     </head>
     <body>
-      <div class="container">
+      <div class="container-fluid">
             <div class="navbar navbar-static-top navbar-inverse" >
                     <div class="navbar-inner">
                         <a class="brand" href="@{Application.index}">Réseau Social</a>

@@ -5,20 +5,10 @@
 package controllers;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import models.Activity;
 import models.Photo;
 import models.User;
 import play.Play;
-import play.libs.Codec;
-import play.libs.F.EventStream;
-import play.libs.Images;
-import play.libs.MimeTypes;
 import play.mvc.Controller;
 import play.mvc.With;
 import plugins.s3blobs.ExtendedS3Blob;
@@ -32,9 +22,7 @@ import service.ShareService;
 @With(Secure.class)
 public class Photos extends Controller{
     
-    
-    public static void index(){
-        
+    public static void index(){        
         render();
     }
     
@@ -73,6 +61,46 @@ public class Photos extends Controller{
         Profil.index();
     }
     
+    public static void photo(Long id){
+        Photo photo = Photo.findById(id);
+        if(photo == null){
+            notFound();
+        }
+        render(photo);
+    }
+    
+    public static void comment(Long photoId,String message){
+        Photo photo = Photo.findById(photoId);
+        if(photo == null){
+            notFound();
+        }
+        photo.comment(Security.connectedUser(), message);
+        Photos.photo(photoId);
+    }
+    
+    public static void like(Long photo){
+        User u = Security.connectedUser();
+        Photo a = Photo.findById(photo);
+        if(a == null) notFound();
+        if(u == null) forbidden();
+        
+        a.like(u);
+        a.save();
+        ok();
+    }
+     
+    
+    public static void dislike(Long photo){
+        User u = Security.connectedUser();
+        Photo a = Photo.findById(photo);
+        if(a == null) notFound();
+        if(u == null) forbidden();
+        
+        a.dislike(u);
+        a.save();
+        ok();
+    }
+    
     private static void renderImage(ExtendedS3Blob s3blob){
         notFoundIfNull(s3blob);
         response.setContentTypeIfNotSet("image/jpg");
@@ -92,6 +120,12 @@ public class Photos extends Controller{
     }
     
     public static void renderAvatar(Long id){
-        renderImage(User.<User>findById(id).avatar.avatar);
+        Photo av = User.<User>findById(id).avatar;
+        if(av != null){
+            renderImage(User.<User>findById(id).avatar.avatar);
+        } else {
+            renderBinary(Play.getFile("/public/images/no-avatar.jpg"));
+        }
+        
     }
 }

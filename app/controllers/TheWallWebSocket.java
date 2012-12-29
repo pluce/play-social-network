@@ -5,22 +5,24 @@
 package controllers;
 
 import play.mvc.WebSocketController;
+import play.mvc.With;
 import service.ShareService;
 
 /**
  *
  * @author Pluce
  */
+
+@Check("user")
+@With(Secure.class)
 public class TheWallWebSocket extends WebSocketController{
     
     
     
     public static void update(){
         while(inbound.isOpen()){
-            System.err.println("__socket__ ");
             String photoId = (String) await(ShareService.photoStream.nextEvent());
             
-            System.err.println("__socket event__ "+photoId);
             outbound.send(photoId);
         }
     }

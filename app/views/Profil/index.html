@@ -48,13 +48,13 @@
         #{/if}
         #{else}        
             #{if !controllers.Security.connectedUser().follows.contains(current)}
-            <div class="invitebox row">
-                <a href="@{Profil.follow(current.id,current.name.slugify())}" class="btn btn-primary span3 offset1"><i class="icon icon-white icon-user"></i>Suivre cette personne</a>
+            <div class="invitebox">
+                <a href="@{Profil.follow(current.id,current.name.slugify())}" class="btn btn-primary"><i class="icon icon-white icon-user"></i>Suivre cette personne</a>
             </div>
             #{/if}
             #{else}
-            <div class="invitebox row">
-                <a href="@{Profil.unfollow(current.id,current.name.slugify())}" class="btn span3 offset1"><i class="icon icon-user"></i>Ne plus suivre cette personne</a>
+            <div class="invitebox">
+                <a href="@{Profil.unfollow(current.id,current.name.slugify())}" class="btn"><i class="icon icon-user"></i>Ne plus suivre cette personne</a>
             </div>
             #{/else}
         #{/else}
@@ -64,16 +64,23 @@
         pub pub
     </div>
 </div>
-
-<div class="modal-backdrop hide">
-</div>
-
-    <div class="full-photo hide">
-        <img class="img-polaroid" src=""/>
-        <span class="close-full-photo"><i class="icon icon-remove"></i> fermer</span>
-    </div>
+    
 <script type="text/javascript">
 $(document).ready(function(){
+    $("input.sendComment").click(function(){
+        var part = $(this).attr("rel");
+        var ele = $(this);
+        $.post(
+            '@{Partage.comment()}',
+            {activity: part,message:$("#input-comment-"+part).val()},
+            function(){
+               location.reload();
+            });
+    });
+    $("a.commentIt").click(function(){
+        var part = $(this).attr("rel");
+        $('#comments-'+part).toggle();
+    });
     $("a.iLikeIt").click(function(){
         var part = $(this).attr("rel");
         var ele = $(this);
@@ -95,18 +102,4 @@ $(document).ready(function(){
             });
     });
 });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-       $(".apercu").click(function(){
-           $('.full-photo img').attr("src",$(this).attr("rel"));
-           $('.modal-backdrop').show();
-           $('.full-photo').show();
-       }) 
-       $(".close-full-photo, .full-photo").click(function(){
-           $('.modal-backdrop').hide();
-           $('.full-photo').hide();
-       })
-    });
 </script>

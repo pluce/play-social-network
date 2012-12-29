@@ -18,7 +18,8 @@ GET     /thewall                                TheWall.index()
 WS      /thewall/update                         TheWallWebSocket.update()
 
 GET     /photos                                 Photos.index()
-GET     /photos/{id}                            Photos.renderPhoto()
+GET     /photos/{id}                            Photos.photo()
+GET     /photos/{id}/full                       Photos.renderPhoto()
 GET     /photos/{id}/thumb                      Photos.renderThumb()
 POST    /photos/upload                          Photos.upload()
 GET     /photos/remove/{id}                     Photos.remove()
@@ -34,6 +35,8 @@ POST    /recherche                              Recherche.chercher()
 
 POST    /ajax/partage/like                      Partage.like()
 POST    /ajax/partage/dislike                   Partage.dislike()
+
+POST    /comment/                               Partage.comment()
 
 POST     /key                                    Application.getAKey().secure()
 

@@ -1,8 +1,8 @@
 <div class="image-grid">
     #{list items: _photos, as:'photo'}
-        <div rel="@@{Photos.renderPhoto(photo.id)}" style="background-image: url('@@{Photos.renderThumb(photo.id)}')" class="apercu">
+        <a href="@{Photos.photo(photo.id)}" id="photo-${photo.id}" rel="@@{Photos.renderPhoto(photo.id)}" style="background-image: url('@@{Photos.renderThumb(photo.id)}')" class="apercu">
             
-        </div>
+        </a>
     #{/list}
 </div>
 <script type="text/javascript">
@@ -26,6 +26,7 @@
         background: url('') center center no-repeat transparent;
         float: left;
         margin: 0px;
+        display: block;
     }    
     
     .image-grid .apercu:hover {

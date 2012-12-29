@@ -18,22 +18,28 @@ import play.mvc.With;
 @With(Secure.class)
 public class Partage extends Controller {
     public static void like(Long activity){
-        User u = User.find("byEmail", Security.connected()).first();
+        User u = Security.connectedUser();
         Activity a = Activity.findById(activity);
         if(a == null) notFound();
         if(u == null) forbidden();
         
-        a.likes.add(u);
+        a.like(u);
         a.save();
         ok();
     }
+    
+    public static void comment(Long activity, String message){
+        Activity toBeCommented = Activity.findById(activity);
+        toBeCommented.comment(Security.connectedUser(), message);
+    }    
+    
     public static void dislike(Long activity){
-        User u = User.find("byEmail", Security.connected()).first();
+        User u = Security.connectedUser();
         Activity a = Activity.findById(activity);
         if(a == null) notFound();
         if(u == null) forbidden();
         
-        a.likes.remove(u);
+        a.dislike(u);
         a.save();
         ok();
     }

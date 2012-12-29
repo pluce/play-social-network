@@ -1,0 +1,91 @@
+#{extends 'main.html' /}
+#{set title:'Photo' /}
+
+<div class="page-header">
+
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span8">             
+            <img class="img-polaroid" src="@{Photos.renderPhoto(photo.id)}"/>
+        </div>
+        <div class="span4 comments">        
+            <h3>Photo de <a href="@{Profil.fiche(photo.owner.id)}">${photo.owner.name}</a></h3>
+            #{if photo.likes.contains(controllers.Security.connectedUser())}
+                <a rel="${photo.id}" href="javascript:void()" title="Ne plus aimer" class="btn btn-mini iDislikeItPhoto">${photo.likes.size()} <i class="icon icon-heart"></i></a>
+            #{/if}
+            #{else}
+                <a rel="${photo.id}" href="javascript:void()" title="Aimer" class="btn btn-mini btn-success iLikeItPhoto">${photo.likes.size()} <i class="icon icon-heart icon-white"></i></a>
+            #{/else}
+            <h3>Commentaires</h3>
+            <ul class="media-list">
+                #{list items: photo.getComments(), as:'comment'}
+                    #{renderSingleActivity activity:comment/}
+                #{/list}
+                <div class="media" class="comment-form">
+                    <div class="media-body">
+                        <h4 class="media-heading">
+                            Ajoutez votre commentaire
+                        </h4>                
+                    </div>
+                    <p>   
+                        #{form @Photos.comment(), class:"form-inline"}
+                            <input type="hidden" name="photoId" value="${photo.id}"/>
+                            <input type="text" name="message"/><input type="submit" class="btn btn-primary" value="Commenter"/>
+                        #{/form}
+                    </p>
+                </div>
+            </ul>  
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $("a.commentIt").click(function(){
+        var part = $(this).attr("rel");
+        $('#comments-'+part).toggle();
+    });
+    $("a.iLikeIt").click(function(){
+        var part = $(this).attr("rel");
+        var ele = $(this);
+        $.post(
+            '@{Partage.like()}',
+            {activity: part},
+            function(){
+               location.reload();
+            });
+    });
+    $("a.iDislikeIt").click(function(){
+        var part = $(this).attr("rel");
+        var ele = $(this);
+        $.post(
+            '@{Partage.dislike()}',
+            {activity: part},
+            function(){
+               location.reload();
+            });
+    });
+    $("a.iLikeItPhoto").click(function(){
+        var part = $(this).attr("rel");
+        var ele = $(this);
+        $.post(
+            '@{Photos.like()}',
+            {photo: part},
+            function(){
+               location.reload();
+            });
+    });
+    $("a.iDislikeItPhoto").click(function(){
+        var part = $(this).attr("rel");
+        var ele = $(this);
+        $.post(
+            '@{Photos.dislike()}',
+            {photo: part},
+            function(){
+               location.reload();
+            });
+    });
+});
+</script>

@@ -43,7 +43,6 @@ public class Profil extends Controller {
         List<Activity> flux = getFluxVisibleDe(id);
         renderTemplate("Profil/index.html",current,flux);
     }
-    
     public static void partager(String message, File image) throws IOException{
         User current = Security.connectedUser();
         if(image != null || (message != null && !message.isEmpty())){

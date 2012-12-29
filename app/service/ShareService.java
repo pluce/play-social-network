@@ -40,6 +40,10 @@ public class ShareService {
     }
     public static Activity shareWithPhoto(User writer, String message, File uploadedFile) throws IOException{
         Photo p = computePhotoUpload(uploadedFile);
+        p.owner = writer;
+        writer.photos.add(p);
+        p.save();
+        writer.save();
         return shareLonelyPhoto(writer, p, message);
     }
     
@@ -52,6 +56,10 @@ public class ShareService {
     
     public static Activity sharePhoto(User writer, File uploadedFile) throws IOException{     
         Photo p = computePhotoUpload(uploadedFile);
+        p.owner = writer;
+        writer.photos.add(p);
+        p.save();
+        writer.save();
         Date oldDate = new Date();
         oldDate = new Date(oldDate.getTime() - 3600*1000);
         Activity act = Activity.find("SELECT a FROM Activity a WHERE a.owner = ? AND a.timeShared > ? ORDER BY a.timeShared DESC",writer,oldDate).first();
