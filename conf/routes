@@ -40,6 +40,8 @@ POST    /comment/                               Partage.comment()
 
 POST     /key                                    Application.getAKey().secure()
 
+/GET    /admin/deleteAllDatabaseDontDoThis      AdminUsers.deleteDatabase()
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 
