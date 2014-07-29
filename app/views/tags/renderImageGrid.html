@@ -1,3 +1,5 @@
+
+
 <div class="image-grid">
     #{list items: _photos, as:'photo'}
         <a href="@{Photos.photo(photo.id)}" id="photo-${photo.id}" rel="@@{Photos.renderPhoto(photo.id)}" style="background-image: url('@@{Photos.renderThumb(photo.id)}')" class="apercu">
